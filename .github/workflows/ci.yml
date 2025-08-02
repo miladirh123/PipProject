@@ -4,16 +4,16 @@ on:
   push:
     branches:
       - master
+      - main
   pull_request:
-    branches:
-      - master
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup Java 17
@@ -21,6 +21,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
+
+      - name: Give gradlew permission
+        run: chmod +x ./gradlew
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug
